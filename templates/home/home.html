@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>JerryChat Imageset</title>
+    <link rel="shortcut icon" href="{% static '/image/icon/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/home/home.js' %}"></script>
+    <script src="{% static 'js/crypto-js.min.js' %}"></script>
+    <script src="{% static 'js/jsencrypt.min.js' %}"></script>
+</head>
+<body>
+    {% load static %}
+    <header class="header">
+        <h2 class="logo">JerryChat</h2>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Service</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="background"></div>
+    <div class="container">
+        <div class="content">
+            <h2 class="logo"><i class="bi bi-image"></i>Imageset</h2>
+            <div class="text-sci">
+                <h2>Welcome!<br><span>To Your Image Manager.</span></h2>
+                <p>Uploading your target image and several pre-recognition pictures, you'll find wonderful 
+                    moment for everyone!</p>
+                <div class="social-icons">
+                    <a href="http://weixin.qq.com/r/LhInP_nEhbT6ra1c90c8"><i class="bi bi-wechat"></i></a>
+                    <a href="https://qm.qq.com/q/5lGHr834E8"><i class="bi bi-tencent-qq"></i></a>
+                    <a href="https://weibo.com/u/7914501356"><i class="bi bi-sina-weibo"></i></a>
+                    <a href="https://github.com/JerryZhouBUPT"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="logreg-box">
+            <div class="form-box login">
+                <form id="FormSignIn">
+                    {% csrf_token %}
+                    <h2>Sign In</h2>
+                    <div class="input-box login">
+                        <span class="icon"><i class="bi bi-person-bounding-box"></i></span>
+                        <input type="text" id="chatbot-account" required>
+                        <label>ChatBot Account</label>
+                    </div>
+                    <div class="input-box login">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" id="chatbot-password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="remember-forgot">
+                        <label><input type="checkbox" id="remember"> Remember me</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn sign-in" id="SignIn">Sign In<div class="circle"></div></button>
+                    <div class="login-register">
+                        <p>Don't have an account? 
+                        <a href="#" class="register-link" style="color: #ffffff;">Sign Up</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="form-box register">
+                <form id="FormSignUp">
+                    {% csrf_token %}
+                    <h2>Sign Up</h2>
+                    <div class="input-box register">
+                        <span class="icon"><i class="bi bi-person-bounding-box"></i></span>
+                        <input type="text" class="new-account" required>
+                        <label>New Account Name</label>
+                    </div>
+                    <div class="input-box register">
+                        <span class="icon"><i class="bi bi-envelope-at-fill"></i></span>
+                        <input type="text" class="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box register">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" id="registerPassword" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="input-box register">
+                        <span class="icon"><i class="bi bi-check-circle-fill"></i></span>
+                        <input type="password" id="recheckPassword" required>
+                        <label>Recheck your password</label>
+                    </div>
+                    <div class="remember-forgot register">
+                        <label><input type="checkbox" id="registerCheckbox">
+                            I agree to the <a href="#" style="color: #ffffff;">terms and conditions</a></label>
+                    </div>
+                    <button type="submit" class="btn sign-up" id="SignUp">Sign Up<div class="circle"></div></button>
+                    <div class="login-register">
+                        <p>Already have an account? 
+                        <a href="#" class="login-link" style="color: #ffffff;">Sign In</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="form-box verify">
+                <form id="FormVerify">
+                    {% csrf_token %}
+                    <h2>Verify Your Email</h2>
+                    <div class="input-box verify">
+                        <span class="icon"><i class="bi bi-envelope-check-fill"></i></span>
+                        <input type="text" class="code" required>
+                        <label>Email Verify Number</label>
+                    </div>
+                    <button type="submit" class="btn verify" id="Submit">Submit<div class="circle"></div></button>
+                    <div class="login-register">
+                        <p>Want to change personal information? <br>
+                        <a href="#" class="verify-link" style="color: #ffffff;">Back To Sign Up</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="terms">
+        <div class="close"><i class="bi bi-x-circle"></i></div>
+        <div class="content">
+            <p class="title">Terms And Conditions</p>
+            <p class="content">
+                <p style="text-indent: 2rem">Welcome to use our facial recognition website service. Please read the 
+            following service agreement carefully before using the website. Your use of the website will be deemed as 
+            acceptance of this agreement.</p>
+                <h4>1. Service Content</h4>
+                <p style="text-indent: 2rem">This website provides facial recognition service for pictures upload. 
+                    Users can upload pictures for facial recognition, comparison, and other operations.</p>
+                <h4>2. User Rights and Obligations</h4>
+                <p style="text-indent: 2rem">Users have the right to upload personal photos for facial recognition, 
+                    and can choose whether to share the comparison results. Users may not upload illegal, obscene, 
+                    violent, and other harmful information.</p>
+                <h4>3. Website Rules and Standards</h4>
+                <p style="text-indent: 2rem">Users should comply with the website's management regulations and behavior
+                    norms when using the website service, and may not use the website for illegal activities or 
+                    infringe on the legitimate rights and interests of others.</p>
+                <h4>4. Service Termination and Release</h4>
+                <p style="text-indent: 2rem">Users have the right to terminate the use of this website's services 
+                    at any time, and the website has the right to terminate the service in the event of a violation 
+                    of the agreement by the user.</p>
+                <h4>5. Intellectual Property Protection</h4>
+                <p style="text-indent: 2rem">The intellectual property rights of the pictures uploaded by users 
+                    and the comparison results belong to the users. However, users agree that this website can use 
+                    relevant pictures and data for technical research and analysis under the premise of compliance 
+                    with legal provisions.</p>
+                <h4>6. Privacy Protection</h4>
+                <p style="text-indent: 2rem">This website promises to strictly protect users' personal privacy 
+                    information and will not disclose users' personal information to third parties.</p>
+                <h4>7. Disclaimer</h4>
+                <p style="text-indent: 2rem">This website is not responsible for any direct or indirect losses 
+                    incurred by users when using this website's services, including but not limited to service 
+                    interruptions due to network failures and system maintenance.</p>
+                <p style="text-indent: 2rem">The above is the service agreement of this website. 
+                    Please read and agree to this agreement carefully before using the website service. 
+                    If you have any questions about this agreement, you can contact us for consultation at any time.
+            </p>
+        </div>
+        <div class="terms-agreement">
+            <button class="disagree">I Disagree</button>
+            <button class="agree">I Agree</button>
+        </div>
+    </div>
+    <div class="login-error">
+        <i style="color: red; font-size: 1rem" class="bi bi-patch-exclamation-fill"></i>
+        <p style="font-size: .8rem; color: #e4e4e4">&nbsp;&nbsp;Account or Password Error</p>
+    </div>
+    <p style="color: #e4e4e4; font-size: .8rem; position: absolute; bottom: 0; right: 0">
+        ICP备案号: <a href="https://beian.miit.gov.cn/" target="_blank" style="color: #e4e4e4; 
+        text-decoration: none; margin-bottom: 0">沪ICP备2023039875号-1</a></p>
+    <script src="{% static 'js/home/home.js' %}"></script>
+</body>
+</html>

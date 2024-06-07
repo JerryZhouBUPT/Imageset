@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>JerryChat Imageset</title>
+    <link rel="shortcut icon" href="{% static '/image/icon/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/main/main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poetsen+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/main/main.js' %}"></script>
+    <script src="{% static 'js/crypto-js.min.js' %}"></script>
+    <script src="{% static 'js/jsencrypt.min.js' %}"></script>
+    <!--suppress CssUnresolvedCustomProperty -->
+    <style>
+        .loader {
+            display: none;
+            position: absolute;
+            background: linear-gradient(to top right, #f7aef8, #72ddf7);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            z-index: 999;
+            transition: .5s;
+        }
+        
+        .loader.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .target-face-show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            animation: showTable 1s forwards;
+        }
+        
+        .container {
+            margin: 1rem;
+        }
+        
+        @keyframes showTable {
+            from {
+                opacity: 0;
+                transform: translateX(-50%);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+                filter: blur(0);
+            }
+        }
+        
+        .target-face-show h1 {
+            font-family: "Poetsen One", sans-serif;
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+        
+        .target-face-show .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .target-face-show .container img {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #f4f4ed;
+            border-radius: 50%;
+            margin: .5rem;
+            box-shadow: 0 0 1rem rgba(255, 255, 255, .5);
+        }
+        
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 370px;
+            overflow: hidden;
+            animation: showTable 1s forwards;
+        }
+        
+        .slider h1 {
+            font-family: "Poetsen One", sans-serif;
+            text-align: center;
+            font-size: 1.5rem;
+            background: -webkit-linear-gradient(135deg,
+                    #0eaf6d,
+                    #ff6ac6 25%,
+                    #147b96 50%,
+                    #e6d205 55%,
+                    #2cc4e0 60%,
+                    #8b2ce0 80%,
+                    #ff6384 95%,
+                    #08dfb4);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-background-size: 200% 100%;
+            -webkit-animation: flowCss 12s infinite linear;
+        }
+        
+        @-webkit-keyframes flowCss {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: -400% 0;
+            }
+        }
+        
+        .item {
+            position: absolute;
+            width: 200px;
+            height: 240px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            padding: 20px;
+            transition: .5s;
+            background-color: #ffffff;
+            left: calc(50% - 110px);
+            top: 4rem;
+        }
+        
+        .item img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 220px;
+            border-radius: 10px;
+        }
+        
+        @keyframes faceUp {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        .loading {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #loading-status {
+            width: 450px;
+            border: 1px #669CB8 solid;
+            -webkit-box-shadow: 0 2px 2px #D0D4D6;
+            height: 15px;
+            -webkit-border-radius: 10px;
+            background: linear-gradient(to bottom, #E1E9EE, white);
+            padding: 1px;
+            margin-right: 1rem;
+        }
+        
+        #percent {
+            background: linear-gradient(to bottom, #7BC3FF, #42A9FF 50%, #7BC3FF 100%);
+            width: var(--last);
+            height: 100%;
+            -webkit-border-radius: 10px;
+            -webkit-transition: width 1s ease-in-out;
+            transition: .5s;
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundMusic" loop>
+        <source src="{% static 'music/background.m4a' %}">
+    </audio>
+    <div class="loader" id="loader">
+        <div class="target-face-show">
+            <h1>Target Face</h1>
+            <div class="container"></div>
+        </div>
+        <div class="slider">
+            <h1>We're dealing with the image below.</h1>
+        </div>
+        <div class="loading">
+            <div id="loading-status">
+                <div id="percent" style="--last: 0"></div>
+            </div>
+            <h4>0%</h4>
+        </div>
+    </div>
+    <div class="background"></div>
+    <nav class="sidebar">
+        <div class="logo-menu">
+            <h2 class="logo" style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #e4e4e4;">JerryChat</h2>
+            <i class='bx bx-menu toggle-btn'></i>
+        </div>
+        <ul class="list">
+            <div class="hover-like"></div>
+            <li class="list-item active">
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link-name" style="--i:1;--start:0;">DashBoard</span>
+                </a>
+            </li>
+            <li class="list-item" id="detected-faces">
+                <a href="#">
+                    <i class='bx bx-face'></i>
+                    <span class="link-name" style="--i:2;--start:0;">Detected Faces</span>
+                </a>
+            </li>
+            <li class="list-item" id="history">
+                <a href="#">
+                    <i class='bx bx-history'></i>
+                    <span class="link-name" style="--i:3;--start:0;">History</span>
+                </a>
+            </li>
+            <li class="list-item" id="settings">
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="link-name" style="--i:4;--start:0;">Settings</span>
+                </a>
+            </li>
+            <li class="list-item">
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="link-name" style="--i:5;--start:0;--end:0;">About Us</span>
+                </a>
+            </li>
+        </ul>
+        <button class="log-out"><i class="bi bi-box-arrow-right"></i></button>
+    </nav>
+    <div class="image-error">
+        <i style="color: red; font-size: 1rem" class="bi bi-patch-exclamation-fill"></i>
+        <p style="font-size: .8rem; color: #e4e4e4">&nbsp;&nbsp;Invalid Image Type</p>
+    </div>
+    <div class="select-error">
+        <i style="color: red; font-size: 1rem" class="bi bi-patch-exclamation-fill"></i>
+        <p style="font-size: .8rem; color: #e4e4e4">&nbsp;&nbsp;Invalid Selection</p>
+    </div>
+    <div class="threshold-success">
+        <i style="color: green; font-size: 1rem" class="bi bi-database-fill-check"></i>
+        <p style="font-size: .8rem; color: #e4e4e4">&nbsp;&nbsp;Successful</p>
+    </div>
+    <div class="threshold-error">
+        <i style="color: red; font-size: 1rem" class="bi bi-database-fill-exclamation"></i>
+        <p style="font-size: .8rem; color: #e4e4e4">&nbsp;&nbsp;Server Error</p>
+    </div>
+    <div class="content btn-space active">
+        <div class="target-image-box">
+            <div class="content-title">
+                <h2>Target Image</h2>
+            </div>
+            <p style="color: #e4e4e4; margin-top: .5rem; text-align: center; font-size: .8rem">Attention: Do not over-crop the face!<br> 
+                    Please upload an original photo with environmental features!</p>
+            <div class="target-image">
+                <div class="image target" style="animation: addContainer .5s forwards;">
+                    <i class="bi bi-plus"></i>
+                    <img src="" alt="" class="preview-image" id="target-image">
+                    <input class="image-input target" type="file" accept="image/png, image/jpeg, image/jpg, image/bmp" 
+                           style="display: none" multiple/>
+                </div>
+            </div>
+            <div class="detected-face-title">
+                <h2>Detected Face</h2><div class="circle"></div>
+            </div>
+            <div class="detected-face-show"></div>
+        </div>
+        <div class="line" style="--height: calc(100%)"></div>
+        <div class="pre-recognition-image-box">
+            <div class="content-title">
+                <h2>Pre-recognition Image</h2>
+            </div>
+            <p style="color: #e4e4e4; margin-top: .5rem; text-align: center; font-size: .8rem">Attention: Do not over-crop the face!<br> 
+                    You're able to upload up to 50 images!</p>
+            <div class="pre-recognition-image">
+                <div class="image pre-recognition" style="animation: addContainer .5s forwards;">
+                    <i class="bi bi-plus"></i>
+                    <img src="" alt="" class="preview-image" id="pre-recognition-image">
+                    <input class="image-input pre-recognition" type="file" accept="image/png, image/jpeg, image/jpg, image/bmp" 
+                           style="display: none" multiple/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content detected-faces">
+        <div class="content-title detected-faces-title">
+            <h2>Detected Faces</h2>
+            <div class="circle active"></div>
+        </div>
+        <div class="detected-faces-content"></div>
+    </div>
+    <div class="content history">
+        <div class="content-title history-title">
+            <h2>History</h2>
+            <div class="circle active"></div>
+        </div>
+        <div class="history-box"></div>
+    </div>
+    <div class="content settings">
+        <div class="content-title settings-title">
+            <h2>Settings</h2>
+        </div>
+        <div class="threshold-settings">
+            <h2>Threshold</h2>
+            <div class="settings-slider">
+                <div id="container">
+                    <div id="slider-box" class="slider-box">
+                        <div class="thumb"></div>
+                    </div>
+                </div>
+                <div class="rate">0.45</div>
+            </div>
+            <button class="threshold-save">Save</button>
+        </div>
+        <section class="contact" id="contact">
+            <h2 class="heading">Contact <span>Us!</span></h2>
+            <form action="#">
+                <div class="input-box">
+                    <div class="input-field">
+                        <input type="text" placeholder="Full Name" required>
+                        <span class="focus"></span>
+                    </div>
+                    <div class="input-field">
+                        <input type="email" placeholder="Email Address" required>
+                        <span class="focus"></span>
+                    </div>
+                    <span class="box-animate scroll" style="--i:2;"></span>
+                </div>
+                <div class="input-box">
+                    <div class="input-field">
+                        <input type="tel" pattern="[0-9]{11}" placeholder="Mobile Number(China Only)" required>
+                        <span class="focus"></span>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" placeholder="Email Subject" required>
+                        <span class="focus"></span>
+                    </div>
+                    <span class="box-animate scroll" style="--i:3;"></span>
+                </div>
+                <div class="textarea-field">
+                    <textarea name="" id="" cols="100" rows="10" placeholder="Your Message" required></textarea>
+                    <span class="focus"></span>
+                    <span class="box-animate scroll" style="--i:4;"></span>
+                </div>
+                <div class="btn-box btns">
+                    <button type="submit" class="btn">Submit</button>
+                    <span class="box-animate scroll" style="--i:5;"></span>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="content personal-container">
+        <h2>Developer Team</h2>
+        <div class="category_container">
+            <div class="personal-content">
+                <img src="{% static 'image/developer/FrankJie1.jpg' %}" class="professio_image" alt="" />
+                <img src="{% static 'image/developer/FrankJie2.jpg' %}" class="profile_image" alt="" />
+                <div class="profile_detail">
+                    <span>Frank Jie</span>
+                    <p>Front-end Developer</p>
+                </div>
+    
+                <div class="personal-wrapper">
+                    <div class="profile_quote">
+                        <p>"Design is not just what it looks like and feels like. Design is how it works."</p>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="personal-content">
+                <img src="{% static 'image/developer/JerryZhou2.jpg' %}" class="profession_image" alt="Profession" />
+                <img src="{% static 'image/developer/JerryZhou1.jpg' %}" class="profile_image" alt="Profile" />
+                <div class="profile_detail">
+                    <span>Jerry Zhou</span>
+                    <p>Full-Stack Developer</p>
+                </div>
+                <div class="personal-wrapper">
+                    <div class="profile_quote">
+                        <p>"It is easier to write a new program than to understand an old one."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="personal-content">
+                <img src="{% static 'image/developer/JavidZhang2.jpg' %}" class="profession_image" alt="Profession" />
+                <img src="{% static 'image/developer/JavidZhang1.jpg' %}" class="profile_image" alt="Profile" />
+                <div class="profile_detail">
+                    <span>Javid Zhang</span>
+                    <p>Algorithm Engineer</p>
+                </div>
+                <div class="personal-wrapper">
+                    <div class="profile_quote">
+                        <p>"The beauty of an algorithm lies in its elegance and efficiency."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>About OUR Project --- AI Facial Recognition Website</h2>
+        <p style="color: #ffe6e6; text-indent: 2rem; margin-bottom: 2rem; margin-right: 2rem; margin-left: 2rem">
+            A website for personal photo categorization and management based on facial recognition technology aims to 
+            provide users with an intelligent solution for photo storage, retrieval, and management. 
+            The website utilizes a variety of advanced facial recognition algorithms that can automatically identify 
+            faces in photos and categorize and tag photos based on the recognition results. This simplifies the 
+            complexity of managing a large number of photos for users and meets the needs of photo management in 
+            modern digital life.</p>
+    </div>
+    <div class="result">
+        <div class="result-title" style="--delay: 0">
+            <button><i class='bx bx-chevron-left'></i>Back</button>
+            <h2>Comparison Result</h2>
+        </div>
+        <div class="target-face-result" style="--delay: 1">
+            <h2>Target Face</h2>
+            <div class="target-face-container"></div>
+        </div>
+        <div class="similar-top-face-show" style="--delay: 2">
+            <h2>TOP 3</h2>
+            <div class="similar-top-face-container"></div>
+        </div>
+        <div class="similar-other-face-show" style="--delay: 3">
+            <h2>Other Wonderful Moment</h2>
+            <div class="similar-other-face-container"></div>
+        </div>
+        <div class="different-face-show" style="--delay: 4">
+            <h2>Other People</h2>
+            <div class="different-face-container"></div>
+        </div>
+    </div>
+    <div class="detail-comparison">
+        <div class="detail-comparison-title" style="--delay: 0">
+            <button><i class='bx bx-chevron-left'></i>Back</button>
+            <h2>Detail Comparison Result</h2>
+        </div>
+        <div class="detail-comparison-nav" style="--delay: 1">
+            <i class='bx bx-navigation' style="font-size: 1.1rem; color: #e4e4e4"></i>
+            <a class="active" id="brow">Brow</a>
+            <a id="nose">Nose</a>
+            <a id="eye">Eye</a>
+            <a id="lip">Lip</a>
+        </div>
+        <div class="detail-comparison-content active" style="--delay: 2">
+            <div class="brow-content active" id="detail-comparison-content">
+                <div class="brow-title active" id="comparison-title">
+                    <h2>Detail For Brow</h2>
+                </div>
+                <div class="brow-content active" id="comparison-content">
+                    <div class="brow-comparison-image active" id="comparison-image">
+                        <div class="brow-target-image active" id="detail-target-image">
+                            <h2>Comparison With All Target Faces</h2>
+                            <img class="comparison-image" src="" alt="">
+                        </div>
+                        <div class="brow-pre-recognition-images active" id="all-pre-recognition-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="nose-content" id="detail-comparison-content">
+                <div class="nose-title" id="comparison-title">
+                    <h2>Detail For Nose</h2>
+                </div>
+                <div class="nose-content" id="comparison-content">
+                    <div class="nose-comparison-image" id="comparison-image">
+                        <div class="nose-target-image" id="detail-target-image">
+                            <h2>Comparison With All Target Faces</h2>
+                            <img class="comparison-image" src="" alt="">
+                        </div>
+                        <div class="nose-pre-recognition-images" id="all-pre-recognition-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="eye-content" id="detail-comparison-content">
+                <div class="eye-title" id="comparison-title">
+                    <h2>Detail For Eye</h2>
+                </div>
+                <div class="eye-content" id="comparison-content">
+                    <div class="eye-comparison-image" id="comparison-image">
+                        <div class="eye-target-image" id="detail-target-image">
+                            <h2>Comparison With All Target Faces</h2>
+                            <img class="comparison-image" src="" alt="">
+                        </div>
+                        <div class="eye-pre-recognition-images" id="all-pre-recognition-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lip-content" id="detail-comparison-content">
+                <div class="lip-title" id="comparison-title">
+                    <h2>Detail For Lip</h2>
+                </div>
+                <div class="lip-content" id="comparison-content">
+                    <div class="lip-comparison-image" id="comparison-image">
+                        <div class="lip-target-image" id="detail-target-image">
+                            <h2>Comparison With All Target Faces</h2>
+                            <img class="comparison-image" src="" alt="">
+                        </div>
+                        <div class="lip-pre-recognition-images" id="all-pre-recognition-image"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit active">
+        <div class="checkbox-circle">
+            <div class="checkbox-wrapper-12">
+              <div class="cbx">
+                <input type="checkbox" id="cbx-12">
+                <label for="cbx-12"></label>
+                <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                  <path d="M2 8.36364L6.23077 12L13 2"></path>
+                </svg>
+              </div>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="goo-12">
+                    <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                    <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                    <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                  </filter>
+                </defs>
+              </svg>
+            </div>
+            <label id="face-detail-feature-btn">&nbsp;&nbsp;&nbsp;Face Detail Feature Comparison</label>
+        </div>
+        <button class="begin-compare" id="compare">Start&nbsp;<i class="fa-solid fa-bolt"></i></button>
+    </div>
+</body>
+</html>
