@@ -82,9 +82,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "Imageset",
         "USER": "imageset",
-        "PASSWORD": "Keboda7star!",
-        "HOST": "bj-cynosdbmysql-grp-5ph3sdg8.sql.tencentcdb.com",
-        "PORT": "24575"
+        "PASSWORD": "*",
+        "HOST": "*",
+        "PORT": "*"
     }
 }
 
