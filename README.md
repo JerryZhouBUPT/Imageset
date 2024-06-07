@@ -60,7 +60,7 @@ Imageset是一个基于云的人脸识别服务平台，旨在为用户提供一
 
    开发工具：PyCharm：专为Python开发的IDE
 
-   `          `MySQL 8.0
+   `          `MySQL 5.7
 
    特殊要求: 
 
